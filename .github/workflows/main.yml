@@ -3,6 +3,71 @@ on:
 
 name: main
 jobs:
+  windows:
+    name: 'Windows (${{matrix.quantumName}}, ${{matrix.platformName}})'
+    runs-on: windows-2022
+
+    permissions:
+      id-token: write
+      contents: read
+      packages: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        quantumName: [Q8]
+        platformName: [Any CPU]
+        exclude:
+        - quantumName: Q8-OpenMP
+          platformName: x86
+        - quantumName: Q16-OpenMP
+          platformName: x86
+        - quantumName: Q16-HDRI-OpenMP
+          platformName: x86
+        - quantumName: Q8-OpenMP
+          platformName: Any CPU
+        - quantumName: Q16-OpenMP
+          platformName: Any CPU
+        - quantumName: Q16-HDRI-OpenMP
+          platformName: Any CPU
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v5
+      with:
+        fetch-tags: true
+
+    - name: Install dependencies
+      run: ./install.dependencies.cmd
+      working-directory: build/windows
+
+    - name: Create nuget.config
+      run: './create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
+      working-directory: src/Magick.Native
+
+    - name: Install Magick.Native
+      run: ./install.cmd
+      working-directory: src/Magick.Native
+
+    - name: Build Magick.NET (Release)
+      run: './build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release'
+      working-directory: build/windows
+
+    - name: Set NuGet version
+      run: ./set.version.ps1
+      working-directory: publish
+
+    - name: Create NuGet package
+      run: './publish.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"'
+      working-directory: publish
+
+    - name: Upload library
+      uses: actions/upload-artifact@v4
+      with:
+        name: 'Magick.NET-${{ matrix.quantumName }}-${{ matrix.platformName }}'
+        path: publish/output
+
   libraries:
     name: Library
     runs-on: windows-2022
