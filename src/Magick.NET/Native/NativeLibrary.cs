@@ -5,6 +5,7 @@ namespace ImageMagick;
 
 internal static class NativeLibrary
 {
+    public static string Stafix = "";
     public const string Name = "Magick.Native";
 
     public const string QuantumName = Quantum + OpenMP;
