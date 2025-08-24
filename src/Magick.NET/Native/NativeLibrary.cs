@@ -5,29 +5,29 @@ namespace ImageMagick;
 
 internal static class NativeLibrary
 {
-    public const string Name = "Magick.Native";
+    public string Name = "Magick.Native";
 
-    public const string QuantumName = Quantum + OpenMP;
+    public string QuantumName = Quantum + OpenMP;
 
-    public const string X86Name = Name + "-" + QuantumName + "-x86.dll";
+    public string X86Name = Name + "-" + QuantumName + "-x86.dll";
 
-    public const string X64Name = Name + "-" + QuantumName + "-x64.dll";
+    public string X64Name = Name + "-" + QuantumName + "-x64.dll";
 
-    public const string Arm64Name = Name + "-" + QuantumName + "-arm64.dll";
+    public string Arm64Name = Name + "-" + QuantumName + "-arm64.dll";
 
 #if Q8
-    private const string Quantum = "Q8";
+    private string Quantum = "Q8";
 #elif Q16
-    private const string Quantum = "Q16";
+    private string Quantum = "Q16";
 #elif Q16HDRI
-    private const string Quantum = "Q16-HDRI";
+    private string Quantum = "Q16-HDRI";
 #else
 #error Not implemented!
 #endif
 
 #if OPENMP
-    private const string OpenMP = "-OpenMP";
+    private string OpenMP = "-OpenMP";
 #else
-    private const string OpenMP = "";
+    private string OpenMP = "";
 #endif
 }
