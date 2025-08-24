@@ -5,7 +5,7 @@ namespace ImageMagick;
 
 internal static class NativeLibrary
 {
-    public const string Name = "/data/data/Magick.Native/com.genouka.qiuutmt/files/Magick.Native";
+    public const string Name = "/data/data/com.genouka.qiuutmt/files/Genouka-Magick.Native";
 
     public const string QuantumName = Quantum + OpenMP;
 
