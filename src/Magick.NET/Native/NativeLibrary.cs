@@ -9,9 +9,9 @@ internal static class NativeLibrary
 
     public const string QuantumName = Quantum + OpenMP;
 
-    public const string X86Name = Name + "-" + QuantumName + "-x86.dll.so";
+    public const string X86Name = Name + "-" + QuantumName + "-x86.dll";
 
-    public const string X64Name = Name + "-" + QuantumName + "-x64.dll.so";
+    public const string X64Name = Name + "-" + QuantumName + "-x64.dll";
 
     public const string Arm64Name = Name + "-" + QuantumName + "-arm64.dll.so";
 
