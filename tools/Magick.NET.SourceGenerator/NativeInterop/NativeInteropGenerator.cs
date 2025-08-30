@@ -119,7 +119,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
         if (info.HasDispose)
         {
-            codeBuilder.Append("[DllImport(NativeLibrary.");
+            codeBuilder.Append("[LibraryImport(NativeLibrary.");
             codeBuilder.Append(name);
             codeBuilder.Append("Name, CallingConvention = CallingConvention.Cdecl, EntryPoint = \"");
             codeBuilder.Append(info.EntryPointClassName);
@@ -134,7 +134,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             if (method.NotSupportedInNetstandard20)
                 codeBuilder.AppendLine("#if !NETSTANDARD2_0");
 
-            codeBuilder.Append("[DllImport(NativeLibrary.");
+            codeBuilder.Append("[LibraryImport(NativeLibrary.");
             codeBuilder.Append(name);
             codeBuilder.Append("Name, CallingConvention = CallingConvention.Cdecl, EntryPoint = \"");
             codeBuilder.Append(info.EntryPointClassName);
