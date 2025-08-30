@@ -13,7 +13,6 @@ param (
 . $PSScriptRoot\publish.shared.ps1
 
 function addMagickNetLibraries($xml, $quantumName, $platform) {
-    addLibrary $xml "Magick.NET" $quantumName $platform "netstandard20"
     addLibrary $xml "Magick.NET" $quantumName $platform "net8.0"
 }
 
@@ -32,8 +31,8 @@ function addNotice($xml) {
 }
 
 function addNativeLibrary($xml, $platform, $runtime, $suffix) {
-    $source = fullPath "src\Magick.Native\libraries\$runtime\Magick.Native-$suffix"
-    $target = "runtimes\$runtime-$platform\native\Magick.Native-$suffix"
+    $source = fullPath "src\Magick.Native\libraries\$runtime\libMagick.Native-$suffix"
+    $target = "runtimes\$runtime-$platform\native\libMagick.Native-$suffix"
     addFile $xml $source $target
 }
 
@@ -74,8 +73,6 @@ function createMagickNetNuGetPackage($quantumName, $platform, $version, $commit)
     addMagickNetLibraries $xml $quantumName $platform
     addNativeLibraries $xml $quantumName $platform
     addNotice $xml
-    addFile $xml "Magick.NET.targets" "build\netstandard20\$name.targets"
-    addFile $xml "Magick.NET.targets" "buildTransitive\netstandard20\$name.targets"
 
     createNuGetPackage $xml $name $version
 }
